@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".apiTgroba.ui.MainActivity"
+        tools:context=".apiMvi.ui.MainActivity"
         android:background="#F7F7F7">
 
         <ProgressBar

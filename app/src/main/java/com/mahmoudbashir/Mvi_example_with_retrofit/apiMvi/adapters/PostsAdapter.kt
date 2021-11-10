@@ -1,4 +1,4 @@
-package com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.adapters
+package com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mahmoudbashir.Mvi_example_with_retrofit.R
-import com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.Model
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.pojo.Model
 
 class PostsAdapter(val mlist:List<Model>): RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 

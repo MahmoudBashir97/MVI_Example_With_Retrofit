@@ -1,10 +1,11 @@
-package com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba
+package com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.retrofit.RetrofitInstance
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.pojo.Model
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.repository.Repository
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,11 +15,13 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class RemoteViewModel : ViewModel() {
+class RemoteViewModel(private val repo:Repository) : ViewModel() {
 
     val intentChannel = Channel<RemoteIntent>(Channel.UNLIMITED)
     private val _viewState = MutableStateFlow<RemoteDataViewState>(RemoteDataViewState.Loading)
     val state: StateFlow<RemoteDataViewState> get() = _viewState
+
+
     var list:MutableLiveData<List<Model>> = MutableLiveData()
 
     init {
@@ -46,9 +49,9 @@ class RemoteViewModel : ViewModel() {
             }
     }
 
-    public suspend fun getPosts():List<Model>{
+     suspend fun getPosts():List<Model>{
         var response : List<Model> = ArrayList()
-        RetrofitInstance.api.getPosts().apply {
+        repo.getPosts().apply {
             val check = this.isSuccessful
             if (check){
                 val body = this.body()

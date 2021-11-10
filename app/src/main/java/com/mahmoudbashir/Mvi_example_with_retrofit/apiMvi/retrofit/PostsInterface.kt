@@ -1,6 +1,6 @@
-package com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.retrofit
+package com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.retrofit
 
-import com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.Model
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.pojo.Model
 import retrofit2.Response
 import retrofit2.http.GET
 

@@ -1,4 +1,4 @@
-package com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba
+package com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.pojo
 
 import com.google.gson.annotations.SerializedName
 

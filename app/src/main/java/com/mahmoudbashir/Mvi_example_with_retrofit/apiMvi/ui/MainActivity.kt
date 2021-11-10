@@ -1,4 +1,4 @@
-package com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.ui
+package com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.mahmoudbashir.Mvi_example_with_retrofit.R
-import com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.Model
-import com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.RemoteDataViewState
-import com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.RemoteIntent
-import com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.RemoteViewModel
-import com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.adapters.PostsAdapter
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.pojo.Model
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.RemoteDataViewState
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.RemoteIntent
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.RemoteViewModel
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.adapters.PostsAdapter
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.repository.Repository
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.utils.ViewModelProvidersFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -24,7 +26,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var pro_bar:ProgressBar
     var mlist:List<Model> = ArrayList()
     val viewModel: RemoteViewModel by lazy {
-         ViewModelProviders.of(this)[RemoteViewModel::class.java]
+        val repo = Repository(this.application)
+         ViewModelProviders.of(this,ViewModelProvidersFactory(repo))[RemoteViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

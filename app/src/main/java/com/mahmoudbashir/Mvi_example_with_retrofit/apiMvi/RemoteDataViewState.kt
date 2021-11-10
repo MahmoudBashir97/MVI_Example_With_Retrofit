@@ -1,4 +1,6 @@
-package com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba
+package com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi
+
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.pojo.Model
 
 sealed class RemoteDataViewState {
 
@@ -8,5 +10,4 @@ sealed class RemoteDataViewState {
     data class Post(val posts:List<Model>):RemoteDataViewState()
     //Error
     data class Error(val err:String):RemoteDataViewState()
-
 }

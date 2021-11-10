@@ -1,5 +1,6 @@
-package com.mahmoudbashir.Mvi_example_with_retrofit.apiTgroba.retrofit
+package com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.retrofit
 
+import com.mahmoudbashir.Mvi_example_with_retrofit.apiMvi.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
