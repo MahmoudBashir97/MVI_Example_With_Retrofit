@@ -6,7 +6,7 @@ sealed class RemoteDataViewState {
 
     //loading
     object Loading:RemoteDataViewState()
-    //post data
+    //get Post data
     data class Post(val posts:List<Model>):RemoteDataViewState()
     //Error
     data class Error(val err:String):RemoteDataViewState()

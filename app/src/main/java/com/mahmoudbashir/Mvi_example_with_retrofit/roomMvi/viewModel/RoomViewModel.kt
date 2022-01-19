@@ -18,11 +18,13 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class RoomViewModel(var model:Any, private val repo:UserRepository) :ViewModel(){
+class RoomViewModel(private val repo:UserRepository) :ViewModel(){
 
+    lateinit var model:User
     val intentChannel = Channel<RoomIntent>(Channel.UNLIMITED)
     private val _viewState = MutableStateFlow<RoomDataviewState>(RoomDataviewState.Idle)
     val state: StateFlow<RoomDataviewState> get() = _viewState
+
 
     init {
         processIntent()
@@ -32,36 +34,58 @@ class RoomViewModel(var model:Any, private val repo:UserRepository) :ViewModel()
         viewModelScope.launch {
             intentChannel.consumeAsFlow().collect {
                 when(it){
-                    is RoomIntent.InsertingData -> reduce(true)
-                    is RoomIntent.GettingData -> reduce(false)
+                    is RoomIntent.InsertingData -> insertingReduce()
+
+                    is RoomIntent.GettingData -> gettingStoredData()
                 }
             }
         }
     }
 
-    private fun reduce(isInsert:Boolean){
-        if (model is User){
-            viewModelScope.launch {
-                _viewState.value =
-                    try {
-                        if (isInsert) RoomDataviewState.Insert(insertingData(model as User)) else RoomDataviewState.GetStoredData(gettingData())
-                    }catch (e: Exception){
-                        RoomDataviewState.Error(e.message!!)
-                    }
+    private fun insertingReduce() {
+        viewModelScope.launch {
+            _viewState.value = try {
+                RoomDataviewState.Insert(insertingData(model))
+            }catch (e:Exception){
+                RoomDataviewState.Error(e.message!!)
             }
         }
     }
 
-    suspend fun insertingData(user: User):User{
+    private fun gettingStoredData(){
+        viewModelScope.launch {
+            _viewState.value = try {
+                RoomDataviewState.GetStoredData(gettingData())
+            }catch (e:Exception){
+                RoomDataviewState.Error(e.message!!)
+            }
+        }
+    }
+
+    suspend fun insertingData(user: User): User {
+        model = user
         repo.insert(user)
         return user
     }
 
-     fun gettingData():LiveData<List<User>>{
-       return repo.getAllStoredUsers()
+    fun gettingData(): LiveData<List<User>> {
+        return repo.getAllStoredUsers()
     }
 
-    fun saveModel( m : User){
-        model=m
-    }
+
+
+    /* private fun reduce(isInsert:Boolean){
+         if (model is User){
+             viewModelScope.launch {
+                 _viewState.value =
+                     try {
+                         if (isInsert) RoomDataviewState.Insert(insertingData(model as User)) else RoomDataviewState.GetStoredData(gettingData())
+                     }catch (e: Exception){
+                         RoomDataviewState.Error(e.message!!)
+                     }
+             }
+         }
+     }*/
+
+
 }

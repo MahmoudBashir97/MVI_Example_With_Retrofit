@@ -20,8 +20,6 @@ class RemoteViewModel(private val repo:Repository) : ViewModel() {
     val intentChannel = Channel<RemoteIntent>(Channel.UNLIMITED)
     private val _viewState = MutableStateFlow<RemoteDataViewState>(RemoteDataViewState.Loading)
     val state: StateFlow<RemoteDataViewState> get() = _viewState
-
-
     var list:MutableLiveData<List<Model>> = MutableLiveData()
 
     init {

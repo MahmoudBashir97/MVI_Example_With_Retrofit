@@ -38,14 +38,10 @@ class MainActivity : AppCompatActivity() {
         rec_posts = findViewById(R.id.rec_posts)
         pro_bar = findViewById(R.id.pro_bar)
 
-        /*runBlocking {
-            viewModel.getPosts()
-        }*/
 
-        /*viewModel.list.observe(this, Observer {
-            Log.d("dataL : "," success : $it")
-        })*/
+
         renderOnViewModel()
+        //send
         lifecycleScope.launch {
             viewModel.intentChannel.send(RemoteIntent.getPosts)
         }
@@ -87,6 +83,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 }
